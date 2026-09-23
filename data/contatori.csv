@@ -1,0 +1,11 @@
+IdContatore,IdEdificio,Edificio,Tipo,UnitaMisura
+2001,E01,Scuola Primaria Dante Alighieri,elettrico,kWh
+2002,E01,Scuola Primaria Dante Alighieri,gas,m³
+2003,E02,Palazzo Comunale – Piazza Libertà,elettrico,kWh
+2004,E02,Palazzo Comunale – Piazza Libertà,gas,m³
+2005,E03,Biblioteca Civica,elettrico,kWh
+2006,E04,Asilo Nido Girotondo,elettrico,kWh
+2007,E04,Asilo Nido Girotondo,gas,m³
+2008,E05,Piscina Comunale,elettrico,kWh
+2009,E05,Piscina Comunale,gas,m³
+2010,E06,Centro Sportivo Città di Lodi,elettrico,kWh

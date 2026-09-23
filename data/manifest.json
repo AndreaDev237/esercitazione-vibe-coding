@@ -1,0 +1,13 @@
+{
+  "righe_totali": 3680,
+  "righe_malformate": 5,
+  "righe_valore_vuoto": 6,
+  "righe_stato_err": 120,
+  "righe_valide_attese": 3549,
+  "correzioni": 30,
+  "letture_dopo_dedup": 3519,
+  "totale_kwh_2025": 637344.5,
+  "totale_m3_2025": 115503.5,
+  "piscina_elettrico_2025_01_kwh": 36983.1,
+  "prima_riga_non_ascii": 4
+}
