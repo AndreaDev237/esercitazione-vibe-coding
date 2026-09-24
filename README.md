@@ -14,6 +14,7 @@ consegni è il codice *e* il diario di come l'hai scritto con l'AI.
 | `data/letture_2025.csv` | una lettura al giorno per contatore, tutto il 2025 |
 | `data/contatori.csv` | l'anagrafica: a quale edificio appartiene ogni contatore, cosa misura, in che unità |
 | `data/manifest.json` | i conteggi attesi. Li ha scritti il generatore del dataset: sono la fonte per i tuoi test |
+| `PROMPT-PATTERN.md` | i sette prompt pattern del corso, come template da riempire, e a quale fase servono |
 | `tools/genera_dataset.py` | il generatore. Puoi leggerlo, ma **non è un modo per risolvere l'esercizio**: il codice che scrivi deve funzionare senza sapere come è nato il file |
 
 Apri i CSV con un editor prima di scrivere codice. Guardali.
@@ -50,7 +51,7 @@ In fondo al diario ci sono due righe che non si possono lasciare vuote:
 
 Vale la regola del modulo: **nessuna risposta dell'AI entra nel repo senza che tu l'abbia letta.** Chiedi, leggi, giudica, poi scrivi. Non è vietato accettare quello che propone; è vietato accettarlo senza saperlo spiegare.
 
-Le tecniche sono quelle del corso: pianificare prima di scrivere, far proporre gli edge case all'AI, chiedere la spiegazione di un traceback invece di provare a caso, derivare le attese dei test dai dati invece che a mano, scrivere il test di integrità prima che serva, rifiutare un refactor che ottimizza una cosa e ne rompe un'altra.
+Le tecniche sono quelle del corso, e i prompt sono in `PROMPT-PATTERN.md`: pianificare prima di scrivere, far proporre gli edge case all'AI, chiedere la spiegazione di un traceback invece di provare a caso, derivare le attese dei test dai dati invece che a mano, scrivere il test di integrità prima che serva, rifiutare un refactor che ottimizza una cosa e ne rompe un'altra.
 
 **I tuoi numeri finali possono essere diversi dai miei.** Se la tua validazione fa una scelta diversa, il totale cambia. Quelli che devono tornare sono nel manifest, e il diario deve dire perché gli altri sono diversi.
 
