@@ -19,15 +19,14 @@ def tieni_ultima(letture: list[dict]) -> list[dict]:
     E' la regola del Comune: la seconda lettura e' una correzione. Restituisce
     una nuova lista, nell'ordine di prima apparizione di ogni coppia.
     """
-    ultime = {}
-    for lettura in letture:
-        ultime[(lettura["id_contatore"], lettura["data"])] = lettura
+    ultime = {(l["id_contatore"], l["data"]): l for l in letture}
     return list(ultime.values())
 
 
 def ordina_per_data(letture: list[dict]) -> list[dict]:
     """Restituisce una nuova lista ordinata per data e contatore."""
-    return sorted(letture, key=lambda l: (l["data"], l["id_contatore"]))
+    letture.sort(key=lambda l: (l["data"], l["id_contatore"]))
+    return letture
 
 
 def consumo_mensile(letture: list[dict], anagrafica: dict[str, dict]) -> dict[tuple, float]:
