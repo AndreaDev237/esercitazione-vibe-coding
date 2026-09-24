@@ -25,8 +25,7 @@ def tieni_ultima(letture: list[dict]) -> list[dict]:
 
 def ordina_per_data(letture: list[dict]) -> list[dict]:
     """Restituisce una nuova lista ordinata per data e contatore."""
-    letture.sort(key=lambda l: (l["data"], l["id_contatore"]))
-    return letture
+    return sorted(letture, key=lambda l: (l["data"], l["id_contatore"]))
 
 
 def consumo_mensile(letture: list[dict], anagrafica: dict[str, dict]) -> dict[tuple, float]:

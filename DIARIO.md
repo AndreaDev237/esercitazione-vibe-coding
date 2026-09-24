@@ -68,28 +68,41 @@ Un contatore che non sta in anagrafica non è un edificio che si chiama "sconosc
 ## 6. Salvataggio
 
 **Prompt usato:**
+> Crea src/store.py con una funzione che crea lo schema SQLite (una tabella denormalizzata: contatore, edificio, tipo, unità, data, valore) e una che inserisce le letture usando l'anagrafica. Aggiungi un vincolo che impedisca due letture per la stessa coppia contatore e data. Poi src/cli.py con argparse che esegue tutta la pipeline e stampa quante righe sono state lette, scartate, quante correzioni, quante inserite. Solo standard library.
 
 **Cosa ho accettato e cosa no:**
+Schema, vincolo e CLI vanno bene. Dentro `inserisci` però catturava `sqlite3.IntegrityError` e faceva `continue`, contando a parte le righe saltate. L'ho tolto: se arriva un doppione l'eccezione sale e basta.
+
+Poi, siccome SQL lo mastico poco, gli ho fatto spiegare `UNIQUE (id_contatore, data)` riga per riga. Il dubbio che avevo era se il vincolo fosse su ogni colonna separatamente o sulla coppia. È sulla coppia: due contatori diversi lo stesso giorno vanno benissimo.
 
 **Perché:**
+Se il database rifiuta una riga, il problema è a monte, la deduplica ha lasciato passare qualcosa. Con il `continue` il riepilogo a schermo tornerebbe comunque e non me ne accorgerei mai. Preferisco che la pipeline si fermi.
 
 ---
 
 ## Una cosa che ho rifiutato
 
+Finita la fase 5, coi test verdi, ho chiesto: "Le liste hanno circa 3500 elementi. Rendi queste funzioni più efficienti, evitando copie inutili." Mi ha proposto due cose: trasformare il ciclo di `tieni_ultima` in una dict comprehension, e in `ordina_per_data` usare `letture.sort(key=...)` al posto di `sorted(...)`, per non copiare la lista.
+
+Le ho applicate tutte e due, senza pensarci troppo. Pytest: `1 failed`, ed era `test_ordina_per_data_non_muta_l_input`. Il `.sort()` ordina la lista che gli passa il chiamante, che poi se la ritrova cambiata. Su quello che avevo chiesto (meno copie) aveva ragione, il costo era da un'altra parte. Ho tolto il `.sort()` e tenuto la comprehension. Il commit rosso è `sol-06-refactor-rosso`, quello dopo `sol-07-store`.
+
+La cosa che mi ha fatto un po' arrabbiare: sotto il blocco di codice c'era scritto "nota: `.sort()` modifica la lista in place". L'avvertimento c'era. Io avevo copiato il blocco e basta.
+
 ## Una riga che non so spiegare
+
+`cursore.rowcount` dopo `executemany`. Non ero sicuro se contasse solo l'ultima esecuzione o tutte. Ho chiesto e ho controllato la documentazione: per gli INSERT è il totale delle righe inserite da tutte le esecuzioni. Prima non lo sapevo e l'avrei committato uguale, il test passava. Adesso lo so.
 
 ## Autovalutazione
 
 | # | Domanda | Sì/No |
 |---|---|---|
-| 1 | Piano prima del codice, e corretto | |
-| 2 | Tre edge case proposti dall'AI e gestiti | |
-| 3 | Un traceback risolto con un prompt | |
-| 4 | Attese dei test dal manifest | |
-| 5 | Test "non modifica l'input" | |
-| 6 | Un suggerimento rifiutato, con motivo | |
-| 7 | "Vale l'ultima" come dice il Comune | |
-| 8 | Il database rifiuta un doppione, con test | |
-| 9 | Diff letto prima di ogni commit | |
-| 10 | So spiegare ogni funzione | |
+| 1 | Piano prima del codice, e corretto | Sì |
+| 2 | Tre edge case proposti dall'AI e gestiti | Sì |
+| 3 | Un traceback risolto con un prompt | Sì, due |
+| 4 | Attese dei test dal manifest | Sì |
+| 5 | Test "non modifica l'input" | Sì, tre |
+| 6 | Un suggerimento rifiutato, con motivo | Sì |
+| 7 | "Vale l'ultima" come dice il Comune | Sì |
+| 8 | Il database rifiuta un doppione, con test | Sì |
+| 9 | Diff letto prima di ogni commit | Sì |
+| 10 | So spiegare ogni funzione | Sì, dopo aver chiesto di `rowcount` |
