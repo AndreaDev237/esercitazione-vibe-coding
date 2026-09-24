@@ -44,10 +44,13 @@ Sul negativo ci ho pensato un attimo. Nelle regole del Comune non c'è, nel file
 ## 4. Test
 
 **Prompt usato:**
+> Per la funzione `valida` in src/valida.py, scrivi 5 test unitari con pytest che coprano caso base, edge case, input non validi, e un caso di regressione. Le attese sui conteggi devono venire da data/manifest.json, non da numeri scritti a mano.
 
 **Cosa ho accettato e cosa no:**
+La struttura sì. Tre assert li ho riscritti. Come caso base aveva messo `assert len(valide) > 0`, che passa con qualunque bug immaginabile. Poi aveva `assert len(scarti) == 131` col numero scritto a mano, nonostante nel prompt gli avessi detto di leggerlo dal manifest (ha letto il manifest per le valide e non per gli scarti, boh). L'ho fatto sommare le tre cause dal manifest. E ho aggiunto un test che non aveva proposto: `test_valida_non_muta_l_input`.
 
 **Perché:**
+Per ogni assert mi sono chiesto quale bug lo farebbe diventare rosso. Su `> 0` non ho trovato risposta. Sul 131 a mano la risposta c'è, ma il giorno che rigenero il dataset quel test diventa rosso senza che ci sia un bug, e so già che qualcuno "sistema" il numero nel test invece di guardare il codice. Il test sull'input che non cambia oggi non serve a niente, lo so. L'ho scritto perché nel corso, alla lezione 7, il suo gemello ha preso l'unico bug vero del progetto. E infatti, vedi fase 5.
 
 ## 5. Aggregazione
 
