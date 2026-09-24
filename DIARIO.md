@@ -20,10 +20,13 @@ Non è colpa sua, in un certo senso. Nel prompt non gli ho detto le regole del C
 ## 2. Lettura
 
 **Prompt usato:**
+> Questo codice `open(percorso, encoding="utf-8")` solleva `UnicodeDecodeError: 'utf-8' codec can't decode byte 0x96 in position 174: invalid start byte`. Spiega la causa, suggerisci 2 fix alternativi, e indica il più robusto.
 
 **Cosa ho accettato e cosa no:**
+La spiegazione era giusta: 0x96 in cp1252 è il trattino lungo (quello di "Palazzo Comunale – Piazza Libertà", riga 4), e in UTF-8 quel byte da solo non vuol dire niente. I due fix proposti erano `errors="replace"` e `encoding="cp1252"`. Ha detto che il primo è più robusto perché "non fallisce mai". Ho preso il secondo.
 
 **Perché:**
+Con `replace` il file si legge sempre, vero, ma i nomi degli edifici escono con dentro il carattere di sostituzione e nessuno se ne accorge finché non li vede in un report. Il file arriva da un gestionale Windows, cp1252 non è un'ipotesi. E se un giorno cambiano gestionale e mi arriva un UTF-8 vero, preferisco che mi esploda in faccia al primo giro piuttosto che avere nomi sporchi in database per un anno.
 
 ## 3. Validazione
 
