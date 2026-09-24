@@ -55,10 +55,15 @@ Per ogni assert mi sono chiesto quale bug lo farebbe diventare rosso. Su `> 0` n
 ## 5. Aggregazione
 
 **Prompt usato:**
+> In src/aggrega.py scrivi: una funzione che carica data/contatori.csv indicizzato per IdContatore; una che, date le letture, per ogni coppia contatore e data tiene l'ultima lettura nell'ordine del file e restituisce una nuova lista; una che ordina per data restituendo una nuova lista; una che somma i consumi per edificio, tipo, unità di misura e mese. Solo standard library. Poi i test in tests/test_aggrega.py, incluso uno che verifichi che le funzioni non modifichino la lista ricevuta.
 
 **Cosa ho accettato e cosa no:**
+Le quattro funzioni le ho tenute quasi tutte così com'erano. Stavolta nel prompt c'era scritto "l'ultima" e ha usato un dizionario che sovrascrive, giusto. Ho cambiato una cosa in `consumo_mensile`: faceva `anagrafica.get(id, {}).get("Edificio", "sconosciuto")`. L'ho ridotto a `anagrafica[id]` e ho aggiunto un test che si aspetta il `KeyError`.
+
+Nei test ha usato `valide[:200]` come campione per il test di integrità su `ordina_per_data`. L'ho cambiato in `valide[-40:] + valide[:40]`.
 
 **Perché:**
+Un contatore che non sta in anagrafica non è un edificio che si chiama "sconosciuto", è un errore nei dati, e voglio saperlo subito. Sul campione: le prime 200 righe del file sono già in ordine di data, quindi se qualcuno mettesse un `.sort()` in place dentro la funzione, il test passerebbe lo stesso e non servirebbe a niente. Le correzioni sono in coda al file con date sparse, per questo prendo anche gli ultimi 40. Me ne sono accorto rileggendo il test con la solita domanda in testa, quale bug lo fa fallire. Così com'era, nessuno.
 
 ## 6. Salvataggio
 
